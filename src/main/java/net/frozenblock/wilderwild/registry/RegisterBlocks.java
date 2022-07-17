@@ -25,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.block.extensions.api.QuiltMaterialBuilder;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
@@ -260,7 +261,7 @@ public class RegisterBlocks {
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, ItemGroup.DECORATIONS);
     }
 
-    // BLOCK FAMILY
+    // BLOCK FAMILIES
     public static final BlockFamily BAOBAB = BlockFamilies.register(BAOBAB_PLANKS)
             .button(BAOBAB_BUTTON)
             .slab(BAOBAB_SLAB)
@@ -291,6 +292,7 @@ public class RegisterBlocks {
             .build();
 
     // HELLO EVERYBODY
+    // hi - treetrain
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
@@ -306,28 +308,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("floating_moss"), new FloatingMossItem(FLOATING_MOSS, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
-
-        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(CATTAIL.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(DATURA.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(MILKWEED.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(RegisterItems.MILKWEED_POD, 0.25F);
-        ItemContentRegistries.COMPOST_CHANCE.put(WHITE_DANDELION.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(FLOWERED_LILY_PAD.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(BROWN_SHELF_FUNGUS.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(RED_SHELF_FUNGUS.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_LEAVES.asItem(), 0.3F);
-        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_LEAVES.asItem(), 0.3F);
-        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_SAPLING.asItem(), 0.3F);
-        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_SAPLING.asItem(), 0.3F);
-        ItemContentRegistries.COMPOST_CHANCE.put(GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(BLUE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(WHITE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(PINK_GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(PURPLE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(FLOATING_MOSS.asItem(), 0.3F);
-
+        registerComposting();
         registerFlammability();
         registerFuels();
     }
@@ -384,6 +365,29 @@ public class RegisterBlocks {
 
     protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    private static void registerComposting() {
+        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CATTAIL.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(DATURA.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(MILKWEED.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(RegisterItems.MILKWEED_POD, 0.25F);
+        ItemContentRegistries.COMPOST_CHANCE.put(WHITE_DANDELION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(FLOWERED_LILY_PAD.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BROWN_SHELF_FUNGUS.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(RED_SHELF_FUNGUS.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_LEAVES.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_LEAVES.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_SAPLING.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_SAPLING.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BLUE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(WHITE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(PINK_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(PURPLE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(FLOATING_MOSS.asItem(), 0.3F);
     }
 
     private static void registerFlammability() {
