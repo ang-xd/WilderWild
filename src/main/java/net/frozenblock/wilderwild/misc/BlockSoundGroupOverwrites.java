@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.BlockTags;
@@ -8,6 +7,7 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
+import org.quiltmc.loader.api.QuiltLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +38,14 @@ public class BlockSoundGroupOverwrites {
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
 
-        if (FabricLoader.getInstance().getModContainer("betternether").isPresent()) {
+        if (QuiltLoader.getModContainer("betternether").isPresent()) {
             addBlock("betternether", "willow_leaves", LEAVES);
             addBlock("betternether", "rubeous_leaves", LEAVES);
             addBlock("betternether", "anchor_tree_leaves", LEAVES);
             addBlock("betternether", "nether_sakura_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("betterend").isPresent()) {
+        if (QuiltLoader.getModContainer("betterend").isPresent()) {
             addBlock("betterend", "pythadendron_leaves", LEAVES);
             addBlock("betterend", "lacugrove_leaves", LEAVES);
             addBlock("betterend", "dragon_tree_leaves", LEAVES);
@@ -54,16 +54,16 @@ public class BlockSoundGroupOverwrites {
             addBlock("betterend", "lucernia_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("blockus").isPresent()) {
+        if (QuiltLoader.getModContainer("blockus").isPresent()) {
             addBlock("blockus", "white_oak_leaves", LEAVES);
             addBlock("blockus", "legacy_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("edenring").isPresent()) {
+        if (QuiltLoader.getModContainer("edenring").isPresent()) {
             addBlock("edenring", "auritis_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("techreborn").isPresent()) {
+        if (QuiltLoader.getModContainer("techreborn").isPresent()) {
             addBlock("techreborn", "rubber_leaves", LEAVES);
         }
     }
