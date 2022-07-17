@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Codec;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.*;
@@ -32,6 +30,9 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
+import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +59,7 @@ public class WilderWild implements ModInitializer {
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
     @Override
-    public void onInitialize() {
+    public void onInitialize(ModContainer modContainer) {
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -88,7 +89,7 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
+        if (QuiltLoader.isDevelopmentEnvironment()) { /* DEV-ONLY */
             RegisterDevelopment.init();
         }
 

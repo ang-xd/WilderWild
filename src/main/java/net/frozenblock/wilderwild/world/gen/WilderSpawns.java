@@ -1,10 +1,10 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.world.biome.BiomeKeys;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 
 public class WilderSpawns {
 

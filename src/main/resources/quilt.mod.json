@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "net.frozenblock",
+    "id": "wilderwild",
+    "version": "${version}",
+    "metadata": {
+      "name": "Wilder Wild",
+      "description": "Delivers on the Wild Update's promises and more!",
+      "contributors": {
+        "FrozenBlock": "Owner"
+      },
+      "contact": {
+        "homepage": "https://github.com/Soro335/WilderWild/",
+        "issues": "https://github.com/Soro335/WilderWild/issues",
+        "sources": "https://github.com/Soro335/WilderWild/"
+      },
+      "icon": "assets/wilderwild/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "license": "GPL-3.0",
+    "environment": "*",
+    "entrypoints": {
+      "init": "net.frozenblock.wilderwild.WilderWild",
+      "mm:early_risers": "net.frozenblock.wilderwild.EarlyRiser",
+      "client_init": "net.frozenblock.wilderwild.WilderWildClient"
+    },
+    "accessWidener": "wilderwild.accesswidener",
+    "depends": [
+      {
+        "id": "mm",
+        "versions": ">=2.3"
+      },
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.17.0-"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=2.0.0-"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.19"
+      },
+      {
+        "id": "java",
+        "versions": ">=17"
+      }
+    ]
+  },
+  "mixin": "wilderwild.mixins.json"
+}

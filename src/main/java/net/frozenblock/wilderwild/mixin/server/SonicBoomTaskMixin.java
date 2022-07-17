@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -24,6 +23,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockStateRaycastContext;
 import net.minecraft.world.World;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,7 +41,7 @@ public class SonicBoomTaskMixin {
 
     @Inject(at = @At("HEAD"), method = "keepRunning(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/mob/WardenEntity;J)V", cancellable = true)
     public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
-        if (!FabricLoader.getInstance().isModLoaded("customsculk")) {
+        if (!QuiltLoader.isModLoaded("customsculk")) {
             if (!wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
                 wardenEntity.getBrain().remember(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, RUN_TIME - 34);
                 wardenEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {

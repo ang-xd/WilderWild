@@ -1,12 +1,12 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.world.biome.BiomeKeys;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
+import org.quiltmc.qsl.worldgen.biome.api.ModificationPhase;
 
 public class WilderMusic {
     public static void playMusic() {

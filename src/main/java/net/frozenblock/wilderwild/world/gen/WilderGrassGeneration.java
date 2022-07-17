@@ -1,18 +1,18 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 
 public class WilderGrassGeneration {
     public static void generateGrassForest() {
-        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.isIn(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.isIn(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.getKey().get());
 
     }

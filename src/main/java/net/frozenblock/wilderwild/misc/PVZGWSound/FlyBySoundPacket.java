@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc.PVZGWSound;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import org.quiltmc.qsl.networking.api.PlayerLookup;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;

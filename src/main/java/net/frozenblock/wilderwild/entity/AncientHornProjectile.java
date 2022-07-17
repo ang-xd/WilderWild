@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
@@ -46,6 +46,7 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
 import java.util.List;
 import java.util.Optional;
