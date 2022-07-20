@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import com.google.gson.*;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -40,12 +39,6 @@ import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.util.Objects;
 import java.util.UUID;
 
 public class WilderWildClient implements ClientModInitializer {
@@ -114,7 +107,7 @@ public class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
-        EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
+        EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
         receiveAncientHornProjectilePacket();

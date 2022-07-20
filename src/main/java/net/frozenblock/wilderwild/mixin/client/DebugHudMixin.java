@@ -2,9 +2,10 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WildConfig;
 import net.minecraft.client.gui.hud.DebugHud;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,9 +35,9 @@ public class DebugHudMixin {
                 if (HIDE_ENTITY_CULLING) {
                     strings.removeIf(string -> string.contains("Culling"));
                 }
-                if (FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild()) {
+                if (QuiltLoader.isDevelopmentEnvironment() && !config.getIncludeWild()) {
                     for (String string : strings) {
-                        String newString = string.replaceAll("wilderwild:", "minecraft:");
+                        String newString = string.replaceAll(WilderWild.MOD_ID + ":", "minecraft:");
                         strings.set(strings.indexOf(string), newString);
                     }
 
@@ -55,9 +56,9 @@ public class DebugHudMixin {
                 List<String> strings = new ArrayList<>() {{
                     addAll(info.getReturnValue());
                 }};
-                if (FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild()) {
+                if (QuiltLoader.isDevelopmentEnvironment() && !config.getIncludeWild()) {
                     for (String string : strings) {
-                        String newString = string.replaceAll("wilderwild:", "minecraft:");
+                        String newString = string.replaceAll(WilderWild.MOD_ID + ":", "minecraft:");
                         strings.set(strings.indexOf(string), newString);
                     }
 

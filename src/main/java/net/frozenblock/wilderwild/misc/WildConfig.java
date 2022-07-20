@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc;
 
 import com.google.gson.*;
-import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.Nullable;
+import org.quiltmc.loader.api.QuiltLoader;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,83 +15,76 @@ public class WildConfig {
 
     public static WildConfigJson config = null;
 
-    @Nullable
     public static void makeConfig() {
         if (!hasRun) {
-            FabricLoader loader = FabricLoader.getInstance();
-            if (loader != null) {
-                File directory = loader.getConfigDir().toFile();
-                File destination = new File(directory, "config.wild");
-                directory.mkdirs();
-                Gson gson = new GsonBuilder()
-                        .disableHtmlEscaping()
-                        .setPrettyPrinting()
-                        .serializeNulls()
-                        .create();
+            File directory = QuiltLoader.getConfigDir().toFile();
+            File destination = new File(directory, "config.wild");
+            directory.mkdirs();
+            Gson gson = new GsonBuilder()
+                    .disableHtmlEscaping()
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .create();
 
-                WildConfigJson configJson = new WildConfigJson();
-                boolean skipWriting = false;
+            WildConfigJson configJson = new WildConfigJson();
+            boolean skipWriting = false;
 
-                if (destination.exists()) {
-                    try (Reader reader = Files.newBufferedReader(destination.toPath())) {
-                        JsonElement values = JsonParser.parseReader(reader);
-                        if (values.isJsonObject()) {
-                            JsonObject obj = values.getAsJsonObject();
-                            configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
-                            configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            if (destination.exists()) {
+                try (Reader reader = Files.newBufferedReader(destination.toPath())) {
+                    JsonElement values = JsonParser.parseReader(reader);
+                    if (values.isJsonObject()) {
+                        JsonObject obj = values.getAsJsonObject();
+                        configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
+                        configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
                     }
-                }
-
-                String json = gson.toJson(configJson);
-
-                try {
-                    FileWriter writer = new FileWriter(destination);
-                    writer.write(json);
-                    writer.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                config = configJson;
-                hasRun = true;
             }
+
+            String json = gson.toJson(configJson);
+
+            try {
+                FileWriter writer = new FileWriter(destination);
+                writer.write(json);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            config = configJson;
+            hasRun = true;
         }
     }
 
     @Nullable
     public static WildConfigJson getConfig() {
         if (!hasRun) {
-            FabricLoader loader = FabricLoader.getInstance();
-            if (loader != null) {
-                if (config == null) {
-                    makeConfig();
-                }
-                File directory = loader.getConfigDir().toFile();
-                File destination = new File(directory, "config.wild");
-                directory.mkdirs();
-
-                WildConfigJson configJson = new WildConfigJson();
-
-                if (destination.exists()) {
-                    try (Reader reader = Files.newBufferedReader(destination.toPath())) {
-                        JsonElement values = JsonParser.parseReader(reader);
-                        if (values.isJsonObject()) {
-                            JsonObject obj = values.getAsJsonObject();
-                            configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
-                            configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                config = configJson;
-                hasRun = true;
-                return config;
+            if (config == null) {
+                makeConfig();
             }
+            File directory = QuiltLoader.getConfigDir().toFile();
+            File destination = new File(directory, "config.wild");
+            directory.mkdirs();
+
+            WildConfigJson configJson = new WildConfigJson();
+
+            if (destination.exists()) {
+                try (Reader reader = Files.newBufferedReader(destination.toPath())) {
+                    JsonElement values = JsonParser.parseReader(reader);
+                    if (values.isJsonObject()) {
+                        JsonObject obj = values.getAsJsonObject();
+                        configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
+                        configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            config = configJson;
+            hasRun = true;
+            return config;
         }
         return config;
     }

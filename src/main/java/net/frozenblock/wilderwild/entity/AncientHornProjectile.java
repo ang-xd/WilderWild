@@ -47,7 +47,6 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +73,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public AncientHornProjectile(World world, double x, double y, double z) {
-        super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
+        super(RegisterEntities.ANCIENT_HORN_PROJECTILE, x, y, z, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 

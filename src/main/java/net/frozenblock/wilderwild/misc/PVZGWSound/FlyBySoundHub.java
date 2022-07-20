@@ -24,7 +24,7 @@ import java.util.List;
 public class FlyBySoundHub {
 
     public static final ArrayList<EntityType<?>> flybyEntitiesAuto = new ArrayList<>() {{
-        add(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY);
+        add(RegisterEntities.ANCIENT_HORN_PROJECTILE);
         add(EntityType.ARROW);
         add(EntityType.BAT);
     }};
