@@ -1,10 +1,15 @@
 package net.frozenblock.wilderwild;
 
+import com.google.gson.*;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
@@ -39,6 +44,12 @@ import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.util.Objects;
 import java.util.UUID;
 
 public class WilderWildClient implements ClientModInitializer {
@@ -56,7 +67,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_CYPRESS_SAPLING);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.DATURA);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.CATTAIL);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.FLOATING_MOSS);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.ALGAE);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.MILKWEED);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POLLEN_BLOCK);
         BlockRenderLayerMap.put(RenderLayer.getTranslucent(), RegisterBlocks.ECHO_GLASS);

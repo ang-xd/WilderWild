@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.item.FloatingMossItem;
+import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.mixin.server.SignTypeAccessor;
@@ -43,8 +43,15 @@ public class RegisterBlocks {
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
     private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE_GRAY;
 
-    // CHISELED PACKED MUD
+    // OTHER(BUILDING BLOCKS)
+    public static final Block SANDY_DIRT = new Block(QuiltBlockSettings.of(Material.SOIL, MapColor.DIRT_BROWN).strength(0.5F).sounds(BlockSoundGroup.GRAVEL));
     public static final Block CHISELED_MUD_BRICKS = new Block(QuiltBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
+
+    public static void registerOtherBB() {
+        // BB = Building Blocks
+        registerBlock("sandy_dirt", SANDY_DIRT, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
+    }
 
     // WOOD
     public static final Block BAOBAB_PLANKS = new Block(QuiltBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
@@ -206,7 +213,7 @@ public class RegisterBlocks {
     }
 
     // MISC
-    private static final Material FLOATING_MOSS_MATERIAL = new QuiltMaterialBuilder(MapColor.DARK_GREEN)
+    private static final Material ALGAE_MATERIAL = new QuiltMaterialBuilder(MapColor.DARK_GREEN)
             .allowsMovement()
             .lightPassesThrough()
             .notSolid()
@@ -233,7 +240,7 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(QuiltBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(QuiltBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block FLOATING_MOSS = new FloatingMossBlock(QuiltBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+    public static final Block ALGAE = new AlgaeBlock(QuiltBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
@@ -295,8 +302,8 @@ public class RegisterBlocks {
     // hi - treetrain
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
-        registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
 
+        registerOtherBB();
         registerWoods();
         registerHollowedLogs();
         registerDeepDark();
@@ -304,8 +311,8 @@ public class RegisterBlocks {
         registerPlants();
         Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
-        Registry.register(Registry.BLOCK, WilderWild.id("floating_moss"), FLOATING_MOSS);
-        Registry.register(Registry.ITEM, WilderWild.id("floating_moss"), new FloatingMossItem(FLOATING_MOSS, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
+        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
         registerComposting();
@@ -387,7 +394,7 @@ public class RegisterBlocks {
         ItemContentRegistries.COMPOST_CHANCE.put(WHITE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(PINK_GLORY_OF_THE_SNOW.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(PURPLE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(FLOATING_MOSS.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(ALGAE.asItem(), 0.3F);
     }
 
     private static void registerFlammability() {
