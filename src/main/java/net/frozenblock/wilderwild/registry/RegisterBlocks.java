@@ -87,7 +87,7 @@ public class RegisterBlocks {
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(QuiltBlockSettings.of(Material.WOOD, BAOBAB_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(QuiltBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
-    public static final Block BAOBAB_SAPLING = new LargeSaplingBlock(new BaobabSaplingGenerator(), QuiltBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+    public static final Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), QuiltBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
     public static final Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_SAPLING, QuiltBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), QuiltBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, QuiltBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
