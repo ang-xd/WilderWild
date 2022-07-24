@@ -2,20 +2,19 @@ package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Codec;
-import net.fabricmc.api.ModInitializer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.*;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.gen.WilderMiscGeneration;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
@@ -78,7 +77,7 @@ public class WilderWild implements ModInitializer {
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderTreeConfigured.registerTreeConfigured();
         WilderTreePlaced.registerTreePlaced();
-        WilderMiscConfigured.registerMiscPlaced();
+        WilderMiscGeneration.generateMisc();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldGen();
@@ -126,7 +125,7 @@ public class WilderWild implements ModInitializer {
         Optional<ModContainer> terralithOptional = QuiltLoader.getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
             ModContainer wilderwild = wilderwildOptional.get();
-            Optional<Path> terraWorld = wilderwild.findPath("data/z_wilderwild_terralith_compat.jar");
+            Optional<Path> terraWorld = Optional.ofNullable(wilderwild.getPath("data/z_wilderwild_terralith_compat.jar"));
             if (terraWorld.isPresent()) {
                 Files.copy(terraWorld.get(), destPath, StandardCopyOption.REPLACE_EXISTING);
             }
