@@ -1,5 +1,8 @@
 package net.frozenblock.wilderwild;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -49,9 +52,9 @@ public class WilderWildClient implements ClientModInitializer {
         FlowerLichenParticleRegistry.init();
 
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.CARNATION);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.WHITE_DANDELION);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.BLOOMING_DANDELION);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_CARNATION);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_WHITE_DANDELION);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_BLOOMING_DANDELION);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_BAOBAB_SAPLING);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_CYPRESS_SAPLING);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.DATURA);
@@ -61,7 +64,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POLLEN_BLOCK);
         BlockRenderLayerMap.put(RenderLayer.getTranslucent(), RegisterBlocks.ECHO_GLASS);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HANGING_TENDRIL);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.FLOWERED_LILY_PAD);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.FLOWERING_LILY_PAD);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.BROWN_SHELF_FUNGUS);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.RED_SHELF_FUNGUS);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.BAOBAB_DOOR);
@@ -130,7 +133,7 @@ public class WilderWildClient implements ClientModInitializer {
                 return 7455580;
             }
             return 2129968;
-        }), RegisterBlocks.FLOWERED_LILY_PAD);
+        }), RegisterBlocks.FLOWERING_LILY_PAD);
 
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);

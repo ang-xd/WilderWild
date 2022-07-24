@@ -7,7 +7,7 @@ import org.quiltmc.qsl.base.api.util.InjectedInterface;
 import java.util.List;
 
 @InjectedInterface(WardenEntityModel.class)
-public interface WardenModelInterface {
+public interface WilderWardenModel {
 
     List<ModelPart> getHeadAndTendrils();
 }

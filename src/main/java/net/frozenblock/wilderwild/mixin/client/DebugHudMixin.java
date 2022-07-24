@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.WildConfig;
+import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.minecraft.client.gui.hud.DebugHud;
 import org.quiltmc.loader.api.QuiltLoader;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ public class DebugHudMixin {
 
     @Inject(at = @At("TAIL"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 List<String> strings = new ArrayList<>() {{
@@ -50,7 +50,7 @@ public class DebugHudMixin {
 
     @Inject(at = @At("TAIL"), method = "getRightText", cancellable = true)
     protected void getRightText(CallbackInfoReturnable<List<String>> info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 List<String> strings = new ArrayList<>() {{
