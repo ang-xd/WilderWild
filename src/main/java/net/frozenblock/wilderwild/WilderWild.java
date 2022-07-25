@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.*;
@@ -77,7 +78,7 @@ public class WilderWild implements ModInitializer {
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderTreeConfigured.registerTreeConfigured();
         WilderTreePlaced.registerTreePlaced();
-        WilderMiscGeneration.generateMisc();
+        WilderMiscConfigured.registerMiscPlaced();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldGen();
