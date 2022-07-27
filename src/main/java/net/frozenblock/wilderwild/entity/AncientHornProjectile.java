@@ -217,7 +217,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canHit(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.isCollidable() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
             return entity2 == null || this.leftOwner || !entity2.isConnectedThroughVehicle(entity);
         } else {
@@ -233,8 +233,8 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
-            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite()) {
-                if (InteractionHandler.addHornNbtToBlock((ServerWorld) world, blockHitResult.getBlockPos(), owner)) {
+            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite() && this.world instanceof ServerWorld server) {
+                if (InteractionHandler.addHornNbtToBlock(server, blockHitResult.getBlockPos(), owner)) {
                     this.discard();
                 }
             }
@@ -341,7 +341,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
-            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.collides())) {
+            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isCollidable())) {
                 if (entity2.getRootVehicle() == entity.getRootVehicle()) {
                     return false;
                 }

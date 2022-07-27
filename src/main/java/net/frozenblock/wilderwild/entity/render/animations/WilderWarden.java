@@ -5,7 +5,7 @@ import net.minecraft.entity.mob.WardenEntity;
 import org.quiltmc.qsl.base.api.util.InjectedInterface;
 
 @InjectedInterface(WardenEntity.class)
-public interface WilderWardenAnimations {
+public interface WilderWarden {
 
     AnimationState getDyingAnimationState();
 

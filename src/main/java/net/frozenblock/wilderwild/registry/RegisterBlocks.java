@@ -220,8 +220,8 @@ public class RegisterBlocks {
     public static final Block TERMITE_MOUND = new TermiteMound(QuiltBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
-    public static final Block BLOOMING_DANDELION = new BloomingDandelionBlock(StatusEffects.SLOW_FALLING, 12, QuiltBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_BLOOMING_DANDELION = new FlowerPotBlock(RegisterBlocks.BLOOMING_DANDELION, QuiltBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(StatusEffects.SLOW_FALLING, 12, QuiltBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
+    public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, QuiltBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, QuiltBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
     public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, QuiltBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(QuiltBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
@@ -237,11 +237,11 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(QuiltBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(QuiltBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block ALGAE = new AlgaeBlock(QuiltBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+    public static final Block ALGAE = new AlgaeBlock(QuiltBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.6F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
-        registerBlock("blooming_dandelion", BLOOMING_DANDELION, ItemGroup.DECORATIONS);
-        registerBlockWithoutBlockItem("potted_blooming_dandelion", POTTED_BLOOMING_DANDELION);
+        registerBlock("seeding_dandelion", SEEDING_DANDELION, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
         registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
         registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
@@ -373,12 +373,11 @@ public class RegisterBlocks {
 
     private static void registerComposting() {
         ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
-        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(CATTAIL.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(DATURA.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(MILKWEED.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(RegisterItems.MILKWEED_POD, 0.25F);
-        ItemContentRegistries.COMPOST_CHANCE.put(BLOOMING_DANDELION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(SEEDING_DANDELION.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(FLOWERING_LILY_PAD.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(BROWN_SHELF_FUNGUS.asItem(), 0.65F);
         ItemContentRegistries.COMPOST_CHANCE.put(RED_SHELF_FUNGUS.asItem(), 0.65F);
@@ -397,7 +396,7 @@ public class RegisterBlocks {
     private static void registerFlammability() {
         WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BLOOMING_DANDELION, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);

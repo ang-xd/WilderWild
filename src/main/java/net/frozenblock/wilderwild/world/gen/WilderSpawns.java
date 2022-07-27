@@ -2,20 +2,20 @@ package net.frozenblock.wilderwild.world.gen;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.minecraft.world.biome.BiomeKeys;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 
 public class WilderSpawns {
 
-    public static void addFirefliesSwamps() {
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP),
+    public static void addFireflies() {
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
-    }
 
-    public static void addFirefliesOthers() {
-        //TODO: Decide which biomes fireflies should spawn in, if any at all (probably not honestly)
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.BAMBOO_JUNGLE),
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE),
+                WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 5, 2, 4);
+
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(WilderBiomeTags.FIREFLY_SPAWNABLE),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 5, 1, 2);
     }
 

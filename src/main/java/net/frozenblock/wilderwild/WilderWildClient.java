@@ -49,9 +49,9 @@ public class WilderWildClient implements ClientModInitializer {
         FlowerLichenParticleRegistry.init();
 
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.CARNATION);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.BLOOMING_DANDELION);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.SEEDING_DANDELION);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_CARNATION);
-        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_BLOOMING_DANDELION);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_SEEDING_DANDELION);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_BAOBAB_SAPLING);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.POTTED_CYPRESS_SAPLING);
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.DATURA);

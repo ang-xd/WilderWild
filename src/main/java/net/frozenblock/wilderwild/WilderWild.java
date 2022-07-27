@@ -3,8 +3,8 @@ package net.frozenblock.wilderwild;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -45,14 +45,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
-    public static final boolean UNSTABLE_LOGGING = true; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
-    public static final String snapshotName = "22wWa";
+    public static boolean UNSTABLE_LOGGING = false; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -72,6 +75,7 @@ public class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize(ModContainer modContainer) {
+        startMeasuring(this);
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -102,12 +106,12 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
         if (QuiltLoader.isDevelopmentEnvironment()) { /* DEV-ONLY */
+            UNSTABLE_LOGGING = true;
             RegisterDevelopment.init();
         }
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
-        WilderConfig.makeConfig();
 
         try {
             terralith();
@@ -118,6 +122,7 @@ public class WilderWild implements ModInitializer {
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
         }
+        stopMeasuring(this);
     }
 
     public static void terralith() throws IOException {
@@ -125,6 +130,13 @@ public class WilderWild implements ModInitializer {
         Optional<ModContainer> wilderwildOptional = QuiltLoader.getModContainer("wilderwild");
         Optional<ModContainer> terralithOptional = QuiltLoader.getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
+
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/frostfire_caves"), "blue");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/frostfire_caves"), "light_blue");
+
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "red");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "orange");
+
             ModContainer wilderwild = wilderwildOptional.get();
             Optional<Path> terraWorld = Optional.ofNullable(wilderwild.getPath("data/z_wilderwild_terralith_compat.jar"));
             if (terraWorld.isPresent()) {
@@ -155,6 +167,10 @@ public class WilderWild implements ModInitializer {
 
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
+    }
+
+    public static String string(String path) {
+        return id(path).toString();
     }
 
     public static final Identifier SEED_PACKET = id("seed_particle_packet");
@@ -214,8 +230,24 @@ public class WilderWild implements ModInitializer {
         }
     }
 
-
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
+    }
+
+    public static Map<Object, Long> instantMap = new HashMap<>();
+
+    public static void startMeasuring(Object object) {
+        long started = System.nanoTime();
+        String name = object.getClass().getName();
+        LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
+        instantMap.put(object, started);
+    }
+
+    public static void stopMeasuring(Object object) {
+        if (instantMap.containsKey(object)) {
+            String name = object.getClass().getName();
+            LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
+            instantMap.remove(object);
+        }
     }
 }
