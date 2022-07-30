@@ -22,8 +22,9 @@
     "environment": "*",
     "entrypoints": {
       "init": "net.frozenblock.wilderwild.WilderWild",
+      "client_init": "net.frozenblock.wilderwild.WilderWildClient",
       "mm:early_risers": "net.frozenblock.wilderwild.EarlyRiser",
-      "client_init": "net.frozenblock.wilderwild.WilderWildClient"
+      "modmenu": "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
     },
     "accessWidener": "wilderwild.accesswidener",
     "depends": [
@@ -37,7 +38,7 @@
       },
       {
         "id": "quilted_fabric_api",
-        "versions": ">=2.0.0-"
+        "versions": ">=4.0.0-"
       },
       {
         "id": "minecraft",
