@@ -75,7 +75,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public AncientHornProjectile(World world, double x, double y, double z) {
-        super(RegisterEntities.ANCIENT_HORN_PROJECTILE, x, y, z, world);
+        super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
