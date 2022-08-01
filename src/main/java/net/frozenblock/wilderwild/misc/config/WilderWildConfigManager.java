@@ -7,8 +7,8 @@ import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.ConfigOptionStorage;
 import com.terraformersmc.modmenu.config.option.EnumConfigOption;
 import com.terraformersmc.modmenu.config.option.StringSetConfigOption;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
+import org.quiltmc.loader.api.QuiltLoader;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -26,7 +26,7 @@ public class WilderWildConfigManager {
         if (file != null) {
             return;
         }
-        file = new File(FabricLoader.getInstance().getConfigDir().toFile(), WilderWild.MOD_ID + ".json");
+        file = new File(QuiltLoader.getConfigDir().toFile(), WilderWild.MOD_ID + ".json");
     }
 
     public static void initializeConfig() {

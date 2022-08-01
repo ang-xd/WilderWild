@@ -36,7 +36,6 @@
 	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
-	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
 	"client.AlexDolphinRenderer",

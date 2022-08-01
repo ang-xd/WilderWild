@@ -1,9 +1,9 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
@@ -33,7 +33,7 @@ public class WilderMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         String mixinString = mixinClassName.substring(mixinClassName.lastIndexOf(".") + 1);
         if (ModsToMixinsDisableMap.containsKey(mixinString)) {
-            return FabricLoader.getInstance().getModContainer(ModsToMixinsDisableMap.get(mixinString)).isEmpty();
+            return QuiltLoader.getModContainer(ModsToMixinsDisableMap.get(mixinString)).isEmpty();
         }
         return mixinClassName.contains(MIXIN_PATH);
     }

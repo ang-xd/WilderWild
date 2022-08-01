@@ -129,7 +129,7 @@ public class WilderWild implements ModInitializer {
             RegisterSaveableMoveablePipeNbt.init();
         }
 
-        if (FabricLoader.getInstance().getModContainer("updatefixerupper").isPresent()) {
+        if (QuiltLoader.getModContainer("updatefixerupper").isPresent()) {
             InteractionHandler.addToUFU();
         }
         stopMeasuring(this);
@@ -175,7 +175,7 @@ public class WilderWild implements ModInitializer {
     }
 
     public static boolean hasModMenu() {
-        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+        return QuiltLoader.getModContainer("modmenu").isPresent();
     }
 
     public static boolean isCopperPipe(BlockState state) {

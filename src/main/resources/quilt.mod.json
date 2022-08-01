@@ -24,7 +24,8 @@
       "init": "net.frozenblock.wilderwild.WilderWild",
       "client_init": "net.frozenblock.wilderwild.WilderWildClient",
       "mm:early_risers": "net.frozenblock.wilderwild.EarlyRiser",
-      "modmenu": "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+      "modmenu": "net.frozenblock.wilderwild.misc.config.ModMenuIntegration",
+      "events": "net.frozenblock.wilderwild.world.WilderWildSurfaceRules"
     },
     "accessWidener": "wilderwild.accesswidener",
     "depends": [
