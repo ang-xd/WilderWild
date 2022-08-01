@@ -4,6 +4,10 @@ import net.frozenblock.wilderwild.WilderWild;
 
 public class ModMenuInteractionHandler {
 
+    public static void loadConfig() {
+        WilderWildConfigManager.initializeConfig();
+    }
+
     public static boolean modDesertPlacement() {
         if (WilderWild.hasModMenu()) {
             return WilderWildConfig.MODIFY_DESERT_PLACEMENT.getValue();
@@ -44,6 +48,13 @@ public class ModMenuInteractionHandler {
             return WilderWildConfig.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT.getValue();
         }
         return true;
+    }
+
+    public static boolean tendrilsEnabled() {
+        if (WilderWild.hasModMenu()) {
+            return WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();
+        }
+        return false;
     }
 
 }
