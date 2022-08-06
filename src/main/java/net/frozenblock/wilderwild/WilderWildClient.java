@@ -159,8 +159,8 @@ public class WilderWildClient implements ClientModInitializer {
             }
         });*/
         if (WilderWild.hasModMenu()) {
-            WilderWild.RENDER_TENDRILS = ModMenuInteractionHandler.tendrilsEnabled();
             ModMenuInteractionHandler.loadConfig();
+            WilderWild.RENDER_TENDRILS = ModMenuInteractionHandler.tendrilsEnabled();
         }
     }
 
