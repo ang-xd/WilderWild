@@ -61,7 +61,7 @@ dependencies {
 	modImplementation "org.quiltmc:qsl:${qsl_version}+${minecraft_version}"
 
 	// Quilted Fabric API
-	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.quilted_fabric_api_version}-1.19.1"
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.quilted_fabric_api_version}-${project.minecraft_version}"
 
 	// Fabric-ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
