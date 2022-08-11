@@ -197,7 +197,7 @@ public class RegisterBlocks {
     public static final Block SCULK_WALL = new SculkWallBlock(QuiltBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK).dropsLike(Blocks.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(QuiltBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(QuiltBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
-            .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)));
+            .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
     public static final Block ECHO_GLASS = new EchoGlassBlock(QuiltBlockSettings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
 
     public static void registerDeepDark() {
@@ -295,6 +295,8 @@ public class RegisterBlocks {
             .unlockCriterionName("has_planks")
             .build();
 
+    public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE));
+
     // HELLO EVERYBODY
     // hi - treetrain
     public static void registerBlocks() {
@@ -310,6 +312,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
+        registerBlock("null_block", DEV_BLOCK, ItemGroup.MISC);
         registerNotSoPlants();
 
         registerComposting();
