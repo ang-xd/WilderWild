@@ -18,14 +18,17 @@
       "icon": "assets/wilderwild/icon.png"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
-    "license": "GPL-3.0",
+    "license": "LGPL-3.0",
     "environment": "*",
     "entrypoints": {
       "init": "net.frozenblock.wilderwild.WilderWild",
       "client_init": "net.frozenblock.wilderwild.WilderWildClient",
       "mm:early_risers": "net.frozenblock.wilderwild.EarlyRiser",
       "modmenu": "net.frozenblock.wilderwild.misc.config.ModMenuIntegration",
-      "events": "net.frozenblock.wilderwild.world.WilderWildSurfaceRules"
+      "events": [
+        "net.frozenblock.wilderwild.world.WilderWildSurfaceRules",
+        "net.frozenblock.wilderwild.WilderWild"
+        ]
     },
     "accessWidener": "wilderwild.accesswidener",
     "depends": [
@@ -43,7 +46,10 @@
       },
       {
         "id": "minecraft",
-        "versions": ">=1.19.1"
+        "versions": [
+          "1.19.1",
+          "1.19.2"
+        ]
       },
       {
         "id": "java",

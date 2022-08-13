@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -25,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import org.quiltmc.qsl.block.content.registry.api.BlockContentRegistries;
+import org.quiltmc.qsl.block.content.registry.api.FlammableBlockEntry;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.block.extensions.api.QuiltMaterialBuilder;
@@ -341,8 +341,8 @@ public class RegisterBlocks {
     }
 
     public static void addBaobab() {
-        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
@@ -351,8 +351,8 @@ public class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
@@ -398,55 +398,55 @@ public class RegisterBlocks {
 
     private static void registerFlammability() {
         WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.POLLEN_BLOCK, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.SEEDING_DANDELION, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CARNATION, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CATTAIL, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.DATURA, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.MILKWEED, new FlammableBlockEntry(100, 60));
 
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_BIRCH_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_OAK_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_ACACIA_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_JUNGLE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_MANGROVE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_SPRUCE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_BAOBAB_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_PLANKS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_STAIRS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_DOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_FENCE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_SLAB, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_FENCE_GATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_PRESSURE_PLATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_TRAPDOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_LEAVES, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_BUTTON, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_SIGN_BLOCK, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_WALL_SIGN, new FlammableBlockEntry(5, 20));
 
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_CYPRESS_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_PLANKS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_STAIRS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_DOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_FENCE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_SLAB, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_FENCE_GATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_PRESSURE_PLATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_TRAPDOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_LEAVES, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_BUTTON, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_SIGN_BLOCK, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_WALL_SIGN, new FlammableBlockEntry(5, 20));
     }
 
     private static void registerFuels() {

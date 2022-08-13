@@ -1,12 +1,12 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
-import net.frozenblock.wilderwild.misc.mod_compat.ufu.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
@@ -23,14 +23,18 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
@@ -40,6 +44,10 @@ import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
+import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +60,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WilderWild implements ModInitializer {
+public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
@@ -80,8 +88,9 @@ public class WilderWild implements ModInitializer {
     }
 
     @Override
-    public void onInitialize(ModContainer modContainer) {
+    public void onInitialize(ModContainer mod) {
         startMeasuring(this);
+        applyDataFixes(mod);
 
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
@@ -126,10 +135,47 @@ public class WilderWild implements ModInitializer {
             RegisterSaveableMoveablePipeNbt.init();
         }
 
-        if (QuiltLoader.getModContainer("updatefixerupper").isPresent()) {
-            InteractionHandler.addToUFU();
-        }
         stopMeasuring(this);
+    }
+
+    private static final int DATA_VERSION = 1;
+
+    private static void applyDataFixes(ModContainer mod) {
+        QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
+        builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+        Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", id("white_dandelion"), id("blooming_dandelion"), schemaV1);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", id("potted_white_dandelion"), id("potted_blooming_dandelion"), schemaV1);
+        Schema schemaV2 = builder.addSchema(2, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", id("blooming_dandelion"), id("seeding_dandelion"), schemaV2);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", id("potted_blooming_dandelion"), id("potted_seeding_dandelion"), schemaV2);
+        Schema schemaV3 = builder.addSchema(3, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
+        SimpleFixes.addItemRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
+        Schema schemaV4 = builder.addSchema(4, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename test_1 to null_block", id("test_1"), id("null_block"), schemaV4);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV4);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV4);
+        Schema testSchema = builder.addSchema(5, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename seeding_dandelion to null_block", id("seeding_dandelion"), id("null_block"), testSchema);
+
+
+        QuiltDataFixes.registerFixer(mod, DATA_VERSION, builder.build(Util::getBootstrapExecutor));
+    }
+
+
+    @Override
+    public void readyServer(MinecraftServer server) {
+        var world = server.getWorld(World.OVERWORLD);
+        if (world == null) {
+            throw new IllegalStateException("NO OVERWORLD?!");
+        }
+
+        try (var writer = Files.newBufferedWriter(QuiltLoader.getGameDir().resolve("wilderwild.txt"))) {
+            writer.write("Wilder Wild datafixer was run");
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write marker file", e);
+        }
     }
 
     //Renaming
