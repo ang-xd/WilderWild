@@ -138,10 +138,10 @@ public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 1;
+    private static final int DATA_VERSION = 32767;
 
     private static void applyDataFixes(ModContainer mod) {
-        QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
+        var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", id("white_dandelion"), id("blooming_dandelion"), schemaV1);
@@ -157,13 +157,13 @@ public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
         SimpleFixes.addItemRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV6);
         Schema schemaV7 = builder.addSchema(7, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename test_1 to null_block", id("test_1"), id("null_block"), schemaV7);
-        Schema schemaV8 = builder.addSchema(7, IdentifierNormalizingSchema::new);
+        Schema schemaV8 = builder.addSchema(8, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV8);
-        Schema schemaV9 = builder.addSchema(7, IdentifierNormalizingSchema::new);
+        Schema schemaV9 = builder.addSchema(9, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV9);
 
 
-        QuiltDataFixes.registerFixer(mod, DATA_VERSION, builder.build(Util::getBootstrapExecutor));
+        QuiltDataFixes.buildAndRegisterFixer(mod, builder);
     }
 
 
