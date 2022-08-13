@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -21,8 +23,10 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.Schemas;
 import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
@@ -47,6 +51,7 @@ import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +64,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
     public static final String MOD_ID = "wilderwild";
@@ -140,9 +148,23 @@ public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
 
     private static final int DATA_VERSION = 32767;
 
+    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
+            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+
+    public static final BiFunction<Integer, Schema, Schema> BASE_SCHEMA = (version, parent) -> {
+        checkArgument(version == 0, "version must be 0");
+        checkArgument(parent == null, "parent must be null");
+        return createBaseSchema();
+    };
+
+    @Contract(value = "-> new", pure = true)
+    public static @NotNull Schema createBaseSchema() {
+        return new Schema(0, VANILLA_SCHEMA);
+    }
+
     private static void applyDataFixes(ModContainer mod) {
-        var builder = new QuiltDataFixerBuilder(DATA_VERSION);
-        builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+        var builder = new DataFixerBuilder(DATA_VERSION);
+        builder.addSchema(0, BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", id("white_dandelion"), id("blooming_dandelion"), schemaV1);
         Schema schemaV2 = builder.addSchema(2, IdentifierNormalizingSchema::new);
@@ -161,9 +183,6 @@ public class WilderWild implements ModInitializer, ServerLifecycleEvents.Ready {
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV8);
         Schema schemaV9 = builder.addSchema(9, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV9);
-
-
-        QuiltDataFixes.buildAndRegisterFixer(mod, builder);
     }
 
 
