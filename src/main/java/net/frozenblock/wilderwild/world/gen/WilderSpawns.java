@@ -6,7 +6,7 @@ import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 
-public class WilderSpawns {
+public final class WilderSpawns {
 
     public static void addFireflies() {
         BiomeModifications.addSpawn(BiomeSelectors.isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY),

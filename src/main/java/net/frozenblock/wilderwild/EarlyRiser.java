@@ -5,7 +5,7 @@ import org.quiltmc.loader.api.MappingResolver;
 import org.quiltmc.loader.api.QuiltLoader;
 
 
-public class EarlyRiser implements Runnable {
+public final class EarlyRiser implements Runnable {
     @Override
     public void run() {
         MappingResolver remapper = QuiltLoader.getMappingResolver();

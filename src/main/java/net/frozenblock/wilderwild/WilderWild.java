@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WilderWild implements ModInitializer {
+public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
@@ -129,6 +129,7 @@ public class WilderWild implements ModInitializer {
     private static final int DATA_VERSION = 5;
 
     private static void applyDataFixes(ModContainer mod) {
+        logWild("Applying DataFixes for", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
@@ -146,21 +147,9 @@ public class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV5);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
 
-
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+        log("DataFixes for Wilder Wild have been applied", true);
     }
-
-    //Renaming
-    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
-        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
-        put(WilderWild.string("test_1"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_echoer"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_jaw"), WilderWild.id("null_block"));
-    }};
 
     //MOD COMPATIBILITY
     public static void terralith() {

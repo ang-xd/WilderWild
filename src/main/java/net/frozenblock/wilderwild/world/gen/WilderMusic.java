@@ -8,7 +8,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
 import org.quiltmc.qsl.worldgen.biome.api.ModificationPhase;
 
-public class WilderMusic {
+public final class WilderMusic {
     public static void playMusic() {
         WilderWild.logWild("Adding Music And Ambience To Biomes for", true);
 

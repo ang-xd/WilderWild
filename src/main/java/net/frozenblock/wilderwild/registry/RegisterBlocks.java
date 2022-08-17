@@ -36,7 +36,7 @@ import java.util.List;
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
 import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
 
-public class RegisterBlocks {
+public final class RegisterBlocks {
     private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.ORANGE;
     private static final MapColor BAOBAB_BARK_COLOR = MapColor.BROWN;
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
@@ -98,11 +98,11 @@ public class RegisterBlocks {
     public static final Block BAOBAB_FENCE = new FenceBlock(QuiltBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(QuiltBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
-    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("baobab");
+    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildbaobab");
     public static final Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(QuiltBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
     public static final Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(QuiltBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
 
-    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
+    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildcypress");
     public static final Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(QuiltBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(QuiltBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
 
@@ -295,7 +295,7 @@ public class RegisterBlocks {
             .unlockCriterionName("has_planks")
             .build();
 
-    public static final Block DEV_BLOCK = new Block(QuiltBlockSettings.copyOf(Blocks.STONE));
+    public static final Block NULL_BLOCK = new Block(QuiltBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
 
     // HELLO EVERYBODY
     // hi - treetrain
@@ -312,7 +312,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new QuiltItemSettings().group(ItemGroup.DECORATIONS)));
-        registerBlock("null_block", DEV_BLOCK, ItemGroup.MISC);
+        registerBlock("null_block", NULL_BLOCK, ItemGroup.MISC);
         registerNotSoPlants();
 
         registerComposting();
@@ -362,7 +362,7 @@ public class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
-    protected static boolean never(BlockState state, BlockView world, BlockPos pos) {
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
         return false;
     }
 
@@ -370,7 +370,7 @@ public class RegisterBlocks {
         return false;
     }
 
-    protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    private static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 

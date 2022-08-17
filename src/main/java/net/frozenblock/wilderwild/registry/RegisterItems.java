@@ -13,7 +13,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffers;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
-public class RegisterItems {
+public final class RegisterItems {
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new QuiltItemSettings().group(ItemGroup.COMBAT).maxCount(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
     public static final RegistryKey<Instrument> ANCIENT_HORN_INSTRUMENT = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("ancient_horn"));
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new QuiltItemSettings().group(ItemGroup.MISC).maxCount(64));

@@ -57,25 +57,29 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                             setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
                             setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
                             for (int h = 0; h <= height / 3; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
+                                switch (x) {
+                                    case -2 -> setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
+                                    case 3 -> setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
+                                    default -> {
+                                        if (z == -2) {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
+                                        } else {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
+                                        }
+                                    }
                                 }
                             }
                             for (int h = 0; h <= height / 2; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                switch (x) {
+                                    case -2 -> setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                    case 3 -> setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                    default -> {
+                                        if (z == -2) {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                        } else {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -137,29 +141,29 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
                     if (Math.random() <= branchpercentage / 100) {
 
-                        int branchlenght = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
+                        int branchlength = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
 
                         boolean case1 = (x == -1 && z == -1);
                         boolean case2 = (x == 2 && z == 2);
                         boolean case3 = (x == -1 && z == 2);
                         boolean case4 = (x == 2 && z == -1);
                         if (case1) {
-                            list.add(generateBranch(height, branchlenght, 1, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                            list.add(generateBranch(height, branchlength, 1, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                         } else if (case2) {
-                            list.add(generateBranch(height, branchlenght, 2, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                            list.add(generateBranch(height, branchlength, 2, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                         } else if (case3) {
-                            list.add(generateBranch(height, branchlenght, 3, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                            list.add(generateBranch(height, branchlength, 3, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                         } else if (case4) {
-                            list.add(generateBranch(height, branchlenght, 4, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                            list.add(generateBranch(height, branchlength, 4, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                         } else {
                             if (x == 2) {
-                                list.add(generateBranch(height, branchlenght, 5, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                                list.add(generateBranch(height, branchlength, 5, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                             } else if (x == -1) {
-                                list.add(generateBranch(height, branchlenght, 6, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                                list.add(generateBranch(height, branchlength, 6, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                             } else if (z == 2) {
-                                list.add(generateBranch(height, branchlenght, 7, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                                list.add(generateBranch(height, branchlength, 7, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                             } else {
-                                list.add(generateBranch(height, branchlenght, 8, world, replacer, random, mutable, config, startPos, x, height + 1, z));
+                                list.add(generateBranch(height, branchlength, 8, world, replacer, random, mutable, config, startPos, x, height + 1, z));
                             }
                         }
                     }

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
-public class RegisterDevelopment {
+public final class RegisterDevelopment {
 
     public static final Camera CAMERA = new Camera(new QuiltItemSettings());
 
