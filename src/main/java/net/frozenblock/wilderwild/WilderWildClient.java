@@ -82,14 +82,14 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW);
         //BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.CYPRESS_ROOTS);
         BlockRenderLayerMap.put(RenderLayer.getSolid(), RegisterBlocks.TERMITE_MOUND);
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_ACACIA_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_BAOBAB_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_BIRCH_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_CYPRESS_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+        BlockRenderLayerMap.put(RenderLayer.getCutout(), RegisterBlocks.HOLLOWED_SPRUCE_LOG);
 
         ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
