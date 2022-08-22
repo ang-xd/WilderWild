@@ -1,10 +1,10 @@
 package net.frozenblock.wilderwild.world;
 
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.noise.NoiseParametersKeys;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Noises;
+import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.worldgen.surface_rule.api.SurfaceRuleEvents;
@@ -14,22 +14,23 @@ public class WilderWildSurfaceRules implements SurfaceRuleEvents.OverworldModifi
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
 
-        MaterialRules.MaterialRule WATER = MaterialRules.block(Blocks.WATER.getDefaultState());
+        var WATER = SurfaceRules.state(Blocks.WATER.defaultBlockState());
 
         context.materialRules().add(0,
-                MaterialRules.condition(
-                        MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(
-                                MaterialRules.condition(
-                                        MaterialRules.biome(RegisterWorldgen.CYPRESS_WETLANDS),
-                                        MaterialRules.condition(
-                                                MaterialRules.aboveY(YOffset.fixed(60), 0),
-                                                MaterialRules.condition(
-                                                        MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(63), 0)),
-                                                        MaterialRules.condition(MaterialRules.noiseThreshold(NoiseParametersKeys.SURFACE_SWAMP, 0.0), WATER)
+                SurfaceRules.ifTrue(
+                        SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
+                                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
                                                 )
                                         )
                                 )
                         )
-                ));
+                )
+        );
     }
 }

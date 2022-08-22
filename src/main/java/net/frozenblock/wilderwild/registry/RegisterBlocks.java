@@ -1,12 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -25,6 +18,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
@@ -47,6 +41,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import org.quiltmc.qsl.block.content.registry.api.BlockContentRegistries;
+import org.quiltmc.qsl.block.content.registry.api.FlammableBlockEntry;
+import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
+import org.quiltmc.qsl.block.extensions.api.QuiltMaterialBuilder;
+import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
+import org.quiltmc.qsl.registry.attachment.api.RegistryEntryAttachment;
+
 import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
@@ -59,7 +61,7 @@ public final class RegisterBlocks {
     private static final MaterialColor CYPRESS_BARK_COLOR = MaterialColor.STONE;
 
     // OTHER (BUILDING BLOCKS)
-    public static final net.minecraft.world.level.block.Block CHISELED_MUD_BRICKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresCorrectToolForDrops().sound(SoundType.MUD_BRICKS));
+    public static final net.minecraft.world.level.block.Block CHISELED_MUD_BRICKS = new net.minecraft.world.level.block.Block(QuiltBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresCorrectToolForDrops().sound(SoundType.MUD_BRICKS));
 
     public static void registerOtherBB() {
         // BB = Building Blocks
@@ -67,60 +69,60 @@ public final class RegisterBlocks {
     }
 
     // WOOD
-    public static final net.minecraft.world.level.block.Block BAOBAB_PLANKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_PLANKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_PLANKS = new net.minecraft.world.level.block.Block(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_PLANKS = new net.minecraft.world.level.block.Block(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_LOG = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_LOG = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_WOOD = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_WOOD = new RotatedPillarBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_SLAB = new SlabBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_SLAB = new SlabBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_SLAB = new SlabBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_SLAB = new SlabBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_STAIRS = new StairBlock(BAOBAB_PLANKS.defaultBlockState(), FabricBlockSettings.copy(BAOBAB_PLANKS));
-    public static final net.minecraft.world.level.block.Block CYPRESS_STAIRS = new StairBlock(CYPRESS_PLANKS.defaultBlockState(), FabricBlockSettings.copy(CYPRESS_PLANKS));
+    public static final net.minecraft.world.level.block.Block BAOBAB_STAIRS = new StairBlock(BAOBAB_PLANKS.defaultBlockState(), QuiltBlockSettings.copy(BAOBAB_PLANKS));
+    public static final net.minecraft.world.level.block.Block CYPRESS_STAIRS = new StairBlock(CYPRESS_PLANKS.defaultBlockState(), QuiltBlockSettings.copy(CYPRESS_PLANKS));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_BUTTON = new WoodButtonBlock(FabricBlockSettings.copy(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR));
-    public static final net.minecraft.world.level.block.Block CYPRESS_BUTTON = new WoodButtonBlock(FabricBlockSettings.copy(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR));
+    public static final net.minecraft.world.level.block.Block BAOBAB_BUTTON = new WoodButtonBlock(QuiltBlockSettings.copy(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR));
+    public static final net.minecraft.world.level.block.Block CYPRESS_BUTTON = new WoodButtonBlock(QuiltBlockSettings.copy(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).noCollission().strength(0.5F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).noCollission().strength(0.5F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).noCollission().strength(0.5F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).noCollission().strength(0.5F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_DOOR = new DoorBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion());
-    public static final net.minecraft.world.level.block.Block CYPRESS_DOOR = new DoorBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion());
+    public static final net.minecraft.world.level.block.Block BAOBAB_DOOR = new DoorBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion());
+    public static final net.minecraft.world.level.block.Block CYPRESS_DOOR = new DoorBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion());
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(RegisterBlocks::never));
-    public static final net.minecraft.world.level.block.Block CYPRESS_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(RegisterBlocks::never));
+    public static final net.minecraft.world.level.block.Block BAOBAB_TRAPDOOR = new TrapDoorBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(RegisterBlocks::never));
+    public static final net.minecraft.world.level.block.Block CYPRESS_TRAPDOOR = new TrapDoorBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(RegisterBlocks::never));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_FENCE_GATE = new FenceGateBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_FENCE_GATE = new FenceGateBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), FabricBlockSettings.of(net.minecraft.world.level.material.Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
-    public static final net.minecraft.world.level.block.Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_SAPLING, FabricBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
-    public static final net.minecraft.world.level.block.Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
-    public static final net.minecraft.world.level.block.Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
+    public static final net.minecraft.world.level.block.Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), QuiltBlockSettings.of(net.minecraft.world.level.material.Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
+    public static final net.minecraft.world.level.block.Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_SAPLING, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
+    public static final net.minecraft.world.level.block.Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), QuiltBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
+    public static final net.minecraft.world.level.block.Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_LEAVES = new LeavesBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RegisterBlocks::canSpawnOnLeaves).isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
-    public static final net.minecraft.world.level.block.Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RegisterBlocks::canSpawnOnLeaves).isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
+    public static final net.minecraft.world.level.block.Block BAOBAB_LEAVES = new LeavesBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RegisterBlocks::canSpawnOnLeaves).isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
+    public static final net.minecraft.world.level.block.Block CYPRESS_LEAVES = new LeavesBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RegisterBlocks::canSpawnOnLeaves).isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
 
-    public static final net.minecraft.world.level.block.Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-    public static final net.minecraft.world.level.block.Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block BAOBAB_FENCE = new FenceBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final net.minecraft.world.level.block.Block CYPRESS_FENCE = new FenceBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
     public static final WoodType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildbaobab");
-    public static final net.minecraft.world.level.block.Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), BAOBAB_SIGN_TYPE);
-    public static final net.minecraft.world.level.block.Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
+    public static final net.minecraft.world.level.block.Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), BAOBAB_SIGN_TYPE);
+    public static final net.minecraft.world.level.block.Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
 
     public static final WoodType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildcypress");
-    public static final net.minecraft.world.level.block.Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), CYPRESS_SIGN_TYPE);
-    public static final net.minecraft.world.level.block.Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
+    public static final net.minecraft.world.level.block.Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), CYPRESS_SIGN_TYPE);
+    public static final net.minecraft.world.level.block.Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
 
     public static void registerWoods() {
         String baobab = "baobab";
@@ -208,13 +210,13 @@ public final class RegisterBlocks {
     }
 
     // SCULK
-    public static final net.minecraft.world.level.block.Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), FabricBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
-    public static final net.minecraft.world.level.block.Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
-    public static final net.minecraft.world.level.block.Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
-    public static final net.minecraft.world.level.block.Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.STONE, MaterialColor.SAND).requiresCorrectToolForDrops().strength(2.0F).sound(RegisterBlockSoundGroups.OSSEOUS_SCULK));
-    public static final net.minecraft.world.level.block.Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).lightLevel((state) -> 1)
+    public static final net.minecraft.world.level.block.Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), QuiltBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
+    public static final net.minecraft.world.level.block.Block SCULK_SLAB = new SculkSlabBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
+    public static final net.minecraft.world.level.block.Block SCULK_WALL = new SculkWallBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.SCULK).strength(0.2F).sound(SoundType.SCULK).dropsLike(Blocks.SCULK));
+    public static final net.minecraft.world.level.block.Block OSSEOUS_SCULK = new OsseousSculkBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.STONE, MaterialColor.SAND).requiresCorrectToolForDrops().strength(2.0F).sound(RegisterBlockSoundGroups.OSSEOUS_SCULK));
+    public static final net.minecraft.world.level.block.Block HANGING_TENDRIL = new HangingTendrilBlock(QuiltBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).lightLevel((state) -> 1)
             .sound(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveRendering((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
-    public static final net.minecraft.world.level.block.Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).noOcclusion().sound(RegisterBlockSoundGroups.ECHO_GLASS));
+    public static final net.minecraft.world.level.block.Block ECHO_GLASS = new EchoGlassBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).noOcclusion().sound(RegisterBlockSoundGroups.ECHO_GLASS));
 
     public static void registerDeepDark() {
         registerBlock("sculk_stairs", SCULK_STAIRS, CreativeModeTab.TAB_DECORATIONS);
@@ -226,34 +228,34 @@ public final class RegisterBlocks {
     }
 
     // MISC
-    private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
+    private static final Material ALGAE_MATERIAL = new QuiltMaterialBuilder(MaterialColor.PLANT)
             .allowsMovement()
             .lightPassesThrough()
             .notSolid()
             .destroyedByPiston()
             .build();
 
-    public static final net.minecraft.world.level.block.Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.3F).sound(RegisterBlockSoundGroups.COARSEDIRT));
+    public static final net.minecraft.world.level.block.Block TERMITE_MOUND = new TermiteMound(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.3F).sound(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
-    public static final net.minecraft.world.level.block.Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
-    public static final net.minecraft.world.level.block.Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
-    public static final net.minecraft.world.level.block.Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
-    public static final net.minecraft.world.level.block.Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
-    public static final net.minecraft.world.level.block.Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion().randomTicks(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
+    public static final net.minecraft.world.level.block.Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, QuiltBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
+    public static final net.minecraft.world.level.block.Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
+    public static final net.minecraft.world.level.block.Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, QuiltBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
+    public static final net.minecraft.world.level.block.Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, QuiltBlockSettings.of(net.minecraft.world.level.material.Material.DECORATION).instabreak().noOcclusion());
+    public static final net.minecraft.world.level.block.Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(QuiltBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion().randomTicks(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
 
-    public static final net.minecraft.world.level.block.Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.QUARTZ).sound(SoundType.VINE));
-    public static final net.minecraft.world.level.block.Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.CRIMSON_STEM).sound(SoundType.VINE));
-    public static final net.minecraft.world.level.block.Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_PURPLE).sound(SoundType.VINE));
-    public static final net.minecraft.world.level.block.Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_BLUE).sound(SoundType.VINE));
+    public static final net.minecraft.world.level.block.Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(QuiltBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.QUARTZ).sound(SoundType.VINE));
+    public static final net.minecraft.world.level.block.Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(QuiltBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.CRIMSON_STEM).sound(SoundType.VINE));
+    public static final net.minecraft.world.level.block.Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(QuiltBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_PURPLE).sound(SoundType.VINE));
+    public static final net.minecraft.world.level.block.Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(QuiltBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_BLUE).sound(SoundType.VINE));
 
-    public static final net.minecraft.world.level.block.Block DATURA = new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).noOcclusion());
-    public static final net.minecraft.world.level.block.Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).noOcclusion());
+    public static final net.minecraft.world.level.block.Block DATURA = new TallFlowerBlock(QuiltBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).noOcclusion());
+    public static final net.minecraft.world.level.block.Block MILKWEED = new MilkweedBlock(QuiltBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).noOcclusion());
 
-    public static final net.minecraft.world.level.block.Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS).strength(0.0F).noOcclusion());
-    public static final net.minecraft.world.level.block.Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sound(RegisterBlockSoundGroups.LILYPAD));
+    public static final net.minecraft.world.level.block.Block CATTAIL = new WaterloggableTallFlowerBlock(QuiltBlockSettings.copy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS).strength(0.0F).noOcclusion());
+    public static final net.minecraft.world.level.block.Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(QuiltBlockSettings.copy(Blocks.LILY_PAD).sound(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final net.minecraft.world.level.block.Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).instabreak().speedFactor(0.6F).noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
+    public static final net.minecraft.world.level.block.Block ALGAE = new AlgaeBlock(QuiltBlockSettings.of(ALGAE_MATERIAL).instabreak().speedFactor(0.6F).noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
 
     public static void registerPlants() {
         registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTab.TAB_DECORATIONS);
@@ -271,9 +273,9 @@ public final class RegisterBlocks {
 
     }
 
-    public static final net.minecraft.world.level.block.Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
-    public static final net.minecraft.world.level.block.Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
-    public static final net.minecraft.world.level.block.Block POLLEN_BLOCK = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(SoundType.VINE));
+    public static final net.minecraft.world.level.block.Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(QuiltBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
+    public static final net.minecraft.world.level.block.Block RED_SHELF_FUNGUS = new ShelfFungusBlock(QuiltBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
+    public static final net.minecraft.world.level.block.Block POLLEN_BLOCK = new FlowerLichenBlock(QuiltBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(SoundType.VINE));
 
     public static void registerNotSoPlants() {
         registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
@@ -311,7 +313,7 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-    public static final net.minecraft.world.level.block.Block NULL_BLOCK = new net.minecraft.world.level.block.Block(FabricBlockSettings.copyOf(Blocks.STONE).sound(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
+    public static final net.minecraft.world.level.block.Block NULL_BLOCK = new net.minecraft.world.level.block.Block(QuiltBlockSettings.copyOf(Blocks.STONE).sound(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
 
     // HELLO EVERYBODY
     // hi - treetrain
@@ -325,9 +327,9 @@ public final class RegisterBlocks {
         registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
         registerPlants();
         Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
+        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new QuiltItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
-        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
+        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new QuiltItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_MISC);
         registerNotSoPlants();
 
@@ -347,18 +349,18 @@ public final class RegisterBlocks {
 
     private static void registerBlockItem(String name, net.minecraft.world.level.block.Block block, CreativeModeTab group) {
         Registry.register(Registry.ITEM, WilderWild.id(name),
-                new BlockItem(block, new FabricItemSettings().tab(group)));
+                new BlockItem(block, new QuiltItemSettings().tab(group)));
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
-        return new HollowedLogBlock(FabricBlockSettings.of(net.minecraft.world.level.material.Material.WOOD,
+        return new HollowedLogBlock(QuiltBlockSettings.of(net.minecraft.world.level.material.Material.WOOD,
                         (state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
                 .strength(2.0F).sound(RegisterBlockSoundGroups.HOLLOWED_LOG));
     }
 
     public static void addBaobab() {
-        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
@@ -367,8 +369,8 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        BlockContentRegistries.STRIPPABLE_BLOCK.put(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
@@ -391,88 +393,88 @@ public final class RegisterBlocks {
     }
 
     private static void registerComposting() {
-        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CARNATION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CATTAIL.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(DATURA.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(MILKWEED.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(RegisterItems.MILKWEED_POD, 0.25F);
+        ItemContentRegistries.COMPOST_CHANCE.put(SEEDING_DANDELION.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(FLOWERING_LILY_PAD.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BROWN_SHELF_FUNGUS.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(RED_SHELF_FUNGUS.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_LEAVES.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_LEAVES.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BAOBAB_SAPLING.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(CYPRESS_SAPLING.asItem(), 0.3F);
+        ItemContentRegistries.COMPOST_CHANCE.put(GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(BLUE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(WHITE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(PINK_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(PURPLE_GLORY_OF_THE_SNOW.asItem(), 0.65F);
+        ItemContentRegistries.COMPOST_CHANCE.put(ALGAE.asItem(), 0.3F);
     }
 
     private static void registerFlammability() {
         WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.POLLEN_BLOCK, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.SEEDING_DANDELION, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CARNATION, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CATTAIL, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.DATURA, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.MILKWEED, new FlammableBlockEntry(100, 60));
 
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_BIRCH_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_OAK_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_ACACIA_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_JUNGLE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_MANGROVE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_SPRUCE_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_BAOBAB_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_BAOBAB_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_PLANKS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_STAIRS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_DOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_FENCE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_SLAB, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_FENCE_GATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_PRESSURE_PLATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_TRAPDOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_LEAVES, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_BUTTON, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_SIGN_BLOCK, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.BAOBAB_WALL_SIGN, new FlammableBlockEntry(5, 20));
 
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.HOLLOWED_CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_CYPRESS_LOG, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.STRIPPED_CYPRESS_WOOD, new FlammableBlockEntry(5, 5));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_PLANKS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_STAIRS, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_DOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_FENCE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_SLAB, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_FENCE_GATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_PRESSURE_PLATE, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_TRAPDOOR, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_LEAVES, new FlammableBlockEntry(100, 60));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_BUTTON, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_SIGN_BLOCK, new FlammableBlockEntry(5, 20));
+        BlockContentRegistries.FLAMMABLE_BLOCK.put(RegisterBlocks.CYPRESS_WALL_SIGN, new FlammableBlockEntry(5, 20));
     }
 
     private static void registerFuels() {
         WilderWild.logWild("Registering Fuels for", WilderWild.UNSTABLE_LOGGING);
-        FuelRegistry registry = FuelRegistry.INSTANCE;
+        RegistryEntryAttachment<Item, Integer> registry = ItemContentRegistries.FUEL_TIME;
 
-        registry.add(BAOBAB_FENCE.asItem(), 300);
-        registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
-        registry.add(CYPRESS_FENCE.asItem(), 300);
-        registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
+        registry.put(BAOBAB_FENCE.asItem(), 300);
+        registry.put(BAOBAB_FENCE_GATE.asItem(), 300);
+        registry.put(CYPRESS_FENCE.asItem(), 300);
+        registry.put(CYPRESS_FENCE_GATE.asItem(), 300);
     }
 }
 

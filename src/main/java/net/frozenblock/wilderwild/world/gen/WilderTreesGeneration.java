@@ -1,11 +1,11 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
+import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 
 public final class WilderTreesGeneration {
     public static void generateTrees() {
@@ -75,7 +75,7 @@ public final class WilderTreesGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_SAVANNA),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES.unwrapKey().orElseThrow());
 
-        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),
+        BiomeModifications.addFeature(BiomeSelectors.isIn(BiomeTags.IS_SAVANNA),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TERMITE_PLACED.unwrapKey().orElseThrow());
 
     }

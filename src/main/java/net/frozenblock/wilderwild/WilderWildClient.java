@@ -1,8 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -41,6 +38,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
+
 import java.util.UUID;
 
 public final class WilderWildClient implements ClientModInitializer {
@@ -48,47 +50,47 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
 
     @Override
-    public void onInitializeClient() {
+    public void onInitializeClient(ModContainer mod) {
         FlowerLichenParticleRegistry.init();
 
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_SHELF_FUNGUS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_DOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_DOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_TRAPDOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_TRAPDOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
-        //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_OAK_LOG, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RenderType.cutout());
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CARNATION);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.SEEDING_DANDELION);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.POTTED_CARNATION);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.POTTED_SEEDING_DANDELION);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.POTTED_BAOBAB_SAPLING);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.POTTED_CYPRESS_SAPLING);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.DATURA);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CATTAIL);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.ALGAE);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.MILKWEED);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.POLLEN_BLOCK);
+        BlockRenderLayerMap.put(RenderType.translucent(), RegisterBlocks.ECHO_GLASS);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HANGING_TENDRIL);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.FLOWERING_LILY_PAD);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.BROWN_SHELF_FUNGUS);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.RED_SHELF_FUNGUS);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.BAOBAB_DOOR);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CYPRESS_DOOR);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.BAOBAB_TRAPDOOR);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CYPRESS_TRAPDOOR);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.BAOBAB_SAPLING);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CYPRESS_SAPLING);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.GLORY_OF_THE_SNOW);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.WHITE_GLORY_OF_THE_SNOW);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.BLUE_GLORY_OF_THE_SNOW);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.PINK_GLORY_OF_THE_SNOW);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW);
+        //BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.CYPRESS_ROOTS);
+        BlockRenderLayerMap.put(RenderType.solid(), RegisterBlocks.TERMITE_MOUND);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_ACACIA_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_BAOBAB_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_BIRCH_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_CYPRESS_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_OAK_LOG);
+        BlockRenderLayerMap.put(RenderType.cutout(), RegisterBlocks.HOLLOWED_SPRUCE_LOG);
 
         ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));

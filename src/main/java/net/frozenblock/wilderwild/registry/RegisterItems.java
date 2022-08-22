@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientHorn;
@@ -11,45 +10,46 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.*;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 public final class RegisterItems {
-    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_COMBAT).stacksTo(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
+    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new QuiltItemSettings().tab(CreativeModeTab.TAB_COMBAT).stacksTo(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
-    public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
-    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE), 169);
-    public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE), 144);
-    public static final RecordItem MUSIC_DISC_THE_OTHER_SIDE = new RecordItem(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE), 76);
-    public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
+    public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
+    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new QuiltItemSettings().stacksTo(1).rarity(Rarity.RARE), 169);
+    public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new QuiltItemSettings().stacksTo(1).rarity(Rarity.RARE), 144);
+    public static final RecordItem MUSIC_DISC_THE_OTHER_SIDE = new RecordItem(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE), 76);
+    public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC));
 
-    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.BAOBAB, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
+    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new QuiltItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.BAOBAB, new QuiltItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item BAOBAB_SIGN = new SignItem(new QuiltItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
             RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
-    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderBoats.CYPRESS, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
+    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderBoats.CYPRESS, new QuiltItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new QuiltItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item CYPRESS_SIGN = new SignItem(new QuiltItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
-    public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
+    public static final Item FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
 
-    public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "black");
-    public static final Item RED_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "red");
-    public static final Item GREEN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "green");
-    public static final Item BROWN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "brown");
-    public static final Item BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "blue");
-    public static final Item PURPLE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "purple");
-    public static final Item CYAN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "cyan");
-    public static final Item LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "light_gray");
-    public static final Item GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "gray");
-    public static final Item PINK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "pink");
-    public static final Item LIME_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "lime");
-    public static final Item YELLOW_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "yellow");
-    public static final Item LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "light_blue");
-    public static final Item MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "magenta");
-    public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "orange");
-    public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "white");
+    public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "black");
+    public static final Item RED_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "red");
+    public static final Item GREEN_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "green");
+    public static final Item BROWN_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "brown");
+    public static final Item BLUE_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "blue");
+    public static final Item PURPLE_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "purple");
+    public static final Item CYAN_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "cyan");
+    public static final Item LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "light_gray");
+    public static final Item GRAY_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "gray");
+    public static final Item PINK_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "pink");
+    public static final Item LIME_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "lime");
+    public static final Item YELLOW_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "yellow");
+    public static final Item LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "light_blue");
+    public static final Item MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "magenta");
+    public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "orange");
+    public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new QuiltItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "white");
 
-    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
+    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new QuiltItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
 
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);

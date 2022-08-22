@@ -3,9 +3,6 @@ package net.frozenblock.wilderwild;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
@@ -38,9 +35,12 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
+import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,9 +76,9 @@ public final class WilderWild implements ModInitializer {
     }
 
     @Override
-    public void onInitialize() {
+    public void onInitialize(ModContainer mod) {
         startMeasuring(this);
-        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
+        applyDataFixes(mod);
 
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
@@ -109,7 +109,7 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
+        if (QuiltLoader.isDevelopmentEnvironment()) { /* DEV-ONLY */
             UNSTABLE_LOGGING = true;
             RegisterDevelopment.init();
         }
@@ -153,8 +153,8 @@ public final class WilderWild implements ModInitializer {
 
     //MOD COMPATIBILITY
     public static void terralith() {
-        Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
-        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
+        Optional<ModContainer> wilderwildOptional = QuiltLoader.getModContainer("wilderwild");
+        Optional<ModContainer> terralithOptional = QuiltLoader.getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
 
             Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
@@ -166,15 +166,15 @@ public final class WilderWild implements ModInitializer {
     }
 
     public static boolean hasTerralith() {
-        return FabricLoader.getInstance().getModContainer("terralith").isPresent();
+        return QuiltLoader.getModContainer("terralith").isPresent();
     }
 
     public static boolean hasSimpleCopperPipes() {
-        return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
+        return QuiltLoader.getModContainer("copper_pipe").isPresent();
     }
 
     public static boolean hasModMenu() {
-        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+        return QuiltLoader.getModContainer("modmenu").isPresent();
     }
 
     public static boolean isCopperPipe(BlockState state) {
