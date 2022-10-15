@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.entity.render.EasterEgg;
 import net.frozenblock.lib.registry.FrozenRegistry;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
@@ -67,6 +66,7 @@ public final class WilderWild implements ModInitializer {
     public static boolean hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
     public static boolean hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
     public static boolean hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
+    public static boolean hasDeeperDarker = FabricLoader.getInstance().isModLoaded("deeperdarker");
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -135,6 +135,10 @@ public final class WilderWild implements ModInitializer {
             terralith();
         }
 
+        if(hasDeeperDarker) {
+            deeperDarker();
+        }
+
         stopMeasuring(this);
     }
 
@@ -184,6 +188,10 @@ public final class WilderWild implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+    }
+
+    public static void deeperDarker() {
+
     }
 
     public static boolean isCopperPipe(BlockState state) {
